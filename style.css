@@ -97,7 +97,7 @@
             letter-spacing: 0.1em;
             padding: 0.8rem 1rem;
             display: block;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, color 0.2s ease;
             border-left: 1px solid #000;
         }
 

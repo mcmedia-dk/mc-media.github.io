@@ -4,16 +4,52 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="stylesheet" href="style.css"/>
-<title>Mc-Media</title>
+<title>Home - MC Media</title>
 </head>
 <body>
-  <div id="navbar"></div>
-
+  <div id="navbar" style="visibility:hidden;"></div>
 <script>
-fetch("./partials/header.html")
-    .then(res => res.text())
-    .then(html => document.getElementById("navbar").innerHTML = html);
+(async () => {
+  try {
+    const res = await fetch("/partials/header.html");
+    const html = await res.text();
+    
+    const navbarContainer = document.getElementById("navbar");
+    navbarContainer.innerHTML = html;
+    
+    // ⏳ Petit délai pour être sûr que le DOM est prêt
+    await new Promise(resolve => setTimeout(resolve, 10));
+    
+    let currentPath = window.location.pathname;
+    if (currentPath === "/") currentPath = "/index.html";
+    currentPath = currentPath.split("?")[0].split("#")[0];
+    
+    // ✅ Chercher les liens DANS le container
+    const links = navbarContainer.querySelectorAll('.nav-link');
+    
+    console.log("Current path:", currentPath); // 🔍 Debug
+    
+    links.forEach(link => {
+      let linkPath = new URL(link.href).pathname;
+      linkPath = linkPath.split("?")[0].split("#")[0];
+      
+      console.log("Comparing:", linkPath, "with", currentPath); // 🔍 Debug
+      
+      if ((currentPath === "/index.html" && linkPath === "/index.html") ||
+          currentPath === linkPath) {
+        link.classList.add('active');
+        console.log("✅ Active ajouté à:", link.href); // 🔍 Debug
+      }
+    });
+    
+    navbarContainer.style.visibility = "visible";
+  } catch (err) {
+    console.error("Erreur chargement navbar :", err);
+  }
+})();
 </script>
+
+
 
     <!-- Sticky Banner with Animation -->
     <div class="sticky-banner">
