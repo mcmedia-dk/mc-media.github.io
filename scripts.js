@@ -24,13 +24,16 @@ function initHeaderAndNavigation() {
     }  
 
     // NAVIGATION EVENT LISTENERS  
-    navLinksAll.forEach(link => {  
-        link.addEventListener('click', (e) => {  
-            e.preventDefault();  
-            const pageId = link.getAttribute('data-page');  
-            navigateToPage(pageId);  
-        });  
+   navLinksAll.forEach(link => {  
+    link.addEventListener('click', (e) => {  
+        const pageId = link.getAttribute('data-page');  
+
+        if (!pageId) return; // ← allow normal navigation
+
+        e.preventDefault();  
+        navigateToPage(pageId);  
     });  
+});
 
     // BACK TO HOME BUTTON
     if (backToHomeBtn) {  
