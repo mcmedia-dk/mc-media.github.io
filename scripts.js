@@ -51,7 +51,7 @@ const heroVideo = document.getElementById('heroVideo');
 const videoFallback = document.getElementById('videoFallback');
 
 // ======================================
-// NAVIGATION ET PAGES
+// NAVIGATION AND PAGES
 // ======================================
 function navigateToPage(pageId) {
     pageSections.forEach(section => section.classList.remove('active'));
@@ -73,11 +73,21 @@ function navigateToPage(pageId) {
     const navLinks = document.querySelector('.nav-links');  
     if (navLinks) navLinks.classList.remove('active');  
 
-    // Active nav link  
+    // Active nav link - MODIFIÉ ICI
     const navLinksAll = document.querySelectorAll('.nav-link');  
     navLinksAll.forEach(link => {  
         link.classList.remove('active');  
-        if (link.getAttribute('data-page') === pageId) link.classList.add('active');  
+        const linkDataPage = link.getAttribute('data-page');
+        
+        // Si c'est une section interne (duck1, mobygratis), garder Home actif
+        const internalSections = ['duck1', 'mobygratis'];
+        if (internalSections.includes(pageId)) {
+            if (linkDataPage === 'home') {
+                link.classList.add('active');
+            }
+        } else if (linkDataPage === pageId) {
+            link.classList.add('active');
+        }
     });  
 
     window.scrollTo(0, 0);  
@@ -147,14 +157,19 @@ function initVideoControls() {
 // ======================================
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Load header first
-    fetch("./partials/header.html")
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById("navbar").innerHTML = html;
-            initHeaderAndNavigation(); // init header nav
-            navigateToPage('home');    // <-- ATTENTION: on attend le header
-        });
+    // 1. Load header SEULEMENT en mode SPA (index.html)
+    if (document.body.classList.contains('spa-mode')) {
+        fetch("/partials/header.html")
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById("navbar").innerHTML = html;
+                initHeaderAndNavigation();
+                navigateToPage('home');
+            });
+    } else {
+        // En mode standalone, le header est déjà chargé, juste init la nav si besoin
+        initHeaderAndNavigation();
+    }
 
     // 2. Initialize cassette buttons + track clicks
     initCassetteFilter();

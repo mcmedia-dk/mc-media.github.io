@@ -124,13 +124,22 @@
         /* ======================================
            MAIN - HERO SECTION
            ====================================== */
-        .page-section {
-            display: none;
-        }
+/* Page sections (for body spa we use the first one system with a single page and for standalone we use display block) */
 
-        .page-section.active {
-            display: block;
-        }
+
+        /* Mode SPA (index.html) */
+     body.spa-mode .page-section {
+        display: none;
+    }
+    body.spa-mode .page-section.active {
+        display: block;
+    }
+
+    /* Mode standalone (autres pages) */
+    body.standalone-mode .page-section {
+        display: block;
+        margin-top: 55px;
+    }
 
         .main-hero {
             position: relative;
