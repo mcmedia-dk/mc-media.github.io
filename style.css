@@ -5,20 +5,27 @@
                     COLORS
        ====================================== */
 
-    --main-color: #ffffff;
-    --card-color:  #f8f8f8;
+    --main-color: #1c1c28;
+    --card-color:  #262841;
     --article-bg-color: #ffffff;
+    --founder-card-bg-color: #564dbc;
+    --network-logo-bg-color: #e9eef1;
     /*text*/
-    --text-color:#000000;
-    --bigtitle-color: #000000;
-    --title-color:  #000000;
+    --text-color:#e9eef1;
+    --bigtitle-color: #b24ce6;
+    --title-color:  #564dbc;
     --date-color: #701010;
+    --container-color: #3da3b2;
+    /*buttons*/
+    --button-color: #000000;
+    --button-hover-color: #230413;
+    --button-text-color: #e9eef1;
     /*links*/
-    --link-color: #0000ff;
-    --link-a-color: #0000ee;
-    --link-a-hover-color: #551a8b;
+    --link-color: #262841;
+    --link-a-color: #00f0ff;
+    --link-a-hover-color: #564dbc;
     /*details*/
-    --divider-color: rgb(255, 192, 203);
+    --divider-color: #e9eef1;
  
 
   
@@ -47,7 +54,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--main-color);
+            background: #d9ddef;
             z-index: 1000;
             border-bottom: 1px solid #000;
         }
@@ -90,7 +97,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #000;
+            color: var(--link-color);
             font-weight: 400;
             font-size: 0.9rem;
             text-transform: uppercase;
@@ -107,8 +114,8 @@
 
         .nav-links a:hover,
         .nav-links a.active {
-            background: #000;
-            color: #fff;
+            background: var(--link-color);
+            color: var(--link-a-color);
         }
 
         /* Mobile menu button */
@@ -581,7 +588,7 @@
             font-size: 2.2rem; /* SMALLER */
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #000;
+            color: var(--bigtitle-color);
             letter-spacing: -0.02em;
         }
 
@@ -598,7 +605,7 @@
             margin-bottom: 3rem;
             font-size: 2.2rem;
             font-weight: 700;
-            color: #000;
+            color: var(--bigtitle-color);
         }
 
         .founders-grid {
@@ -614,7 +621,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, #fff5f8 0%, #ffd6e7 100%);
+            background: linear-gradient(135deg, #fff5f8 0%, var(--founder-card-bg-color) 100%);
             padding: 2rem;
             border-radius: 12px;
             border: 1px solid #000;
@@ -639,7 +646,7 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
-            border: 1px solid #000; /* CHANGED FROM PINK TO BLACK */
+            border: 1px solid #000; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -654,25 +661,25 @@
             font-size: 1.4rem;
             font-weight: 600;
             margin-bottom: 0.8rem;
-            color: #000;
+            color: var(--bigtitle-colorcolor);
         }
 
         .founder-info p {
             margin-bottom: 0.5rem;
-            color: #333;
+            color: var(--text-color);
             font-size: 0.95rem;
         }
 
         .founder-info .title {
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: #000; /* CHANGED FROM PINK TO BLACK */
+            color: var(--title-color); 
             font-size: 1rem;
         }
 
         .founder-info .experience {
             margin-bottom: 0.3rem;
-            color: #333;
+            color: var(--text-color);
             font-size: 0.9rem;
         }
 
@@ -688,7 +695,7 @@
             text-align: center;
             font-size: 2.2rem;
             font-weight: 700;
-            color: #000;
+            color: var(--bigtitle-color);
             margin-bottom: 2rem;
             letter-spacing: -0.02em;
         }
@@ -725,7 +732,7 @@
             object-fit: contain;
             margin-bottom: 1rem;
             border-radius: 8px;
-            background: white;
+            background: var(--network-logo-bg-color);
             padding: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -734,13 +741,13 @@
             font-weight: 600;
             font-size: 1rem;
             margin-bottom: 0.5rem;
-            color: #000;
+            color: var(--title-color);
         }
 
         .logo-text {
             font-size: 0.9rem;
             line-height: 1.4;
-            color: #333;
+            color: var(--text-color);
         }
 
         /* Responsive adjustments for network section */
@@ -788,13 +795,13 @@
             font-size: 2.2rem; /* SMALLER */
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #000;
+            color: var(--bigtitle-color);
             letter-spacing: -0.02em;
         }
 
         .contact-header p {
             font-size: 1.2rem;
-            color: #000;
+            color: var(--text-color);
             max-width: 800px;
             margin: 0 auto;
             line-height: 1.6;
@@ -810,7 +817,7 @@
         }
 
         .contact-category {
-            background: #f8f8f8;
+            background: var(--card-color);
             padding: 2.5rem;
             border-radius: 8px;
             border: 1px solid #e0e0e0;
@@ -820,22 +827,22 @@
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            color: #000;
+            color: var(--bigtitle-color);
             padding-bottom: 0.75rem;
-            border-bottom: 2px solid #ff1493;
+            border-bottom:3px solid var(--divider-color);
         }
 
         .contact-category p {
             font-size: 1.05rem;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-color);
             margin-bottom: 1rem;
         }
 
         .contact-form-container {
             max-width: 700px;
             margin: 0 auto;
-            background: white;
+            background: var(--container-color);
             padding: 3rem;
             border: 1px solid #000;
             border-radius: 8px;
@@ -860,7 +867,7 @@
             display: block;
             font-weight: 500;
             margin-bottom: 0.5rem;
-            color: #000;
+            color: var(--text-color);
             font-size: 0.9rem;
         }
 
@@ -881,8 +888,8 @@
         }
 
         .submit-btn {
-            background: #000;
-            color: white;
+            background: var(--button-color);
+            color: var(--button-text-color);
             padding: 15px 30px;
             border: none;
             font-size: 1rem;
@@ -896,7 +903,7 @@
         }
 
         .submit-btn:hover {
-            background: #333;
+            background: var(--button-hover-color);
         }
 
         .form-status {
@@ -1264,7 +1271,7 @@
             height: 40px;
             background: white;
             border-radius: 50%;
-            color: #000;
+            color: var(--link-a-color);
             text-decoration: none;
             transition: all 0.3s ease;
             font-size: 1.1rem;
@@ -1272,8 +1279,8 @@
         }
 
         .social-links a:hover {
-            background: #000;
-            color: white;
+            background: var(--link-a-hover-color);
+            color: var(--link-color);
             transform: translateY(-2px);
         }
 
@@ -1297,8 +1304,8 @@
             position: fixed;
             top: 120px;
             left: 20px;
-            background: #000;
-            color: white;
+            background: var(--button-color);
+            color: var(--button-text-color);
             border: none;
             padding: 12px 18px;
             border-radius: 25px;
@@ -1310,7 +1317,7 @@
         }
 
         .back-to-home:hover {
-            background: #000;
+            background: var(--button-hover-color);
             transform: translateX(-3px);
         }
 
