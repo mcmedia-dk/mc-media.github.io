@@ -7,18 +7,18 @@
 
     --main-color: #1c1c28;
     --card-color:  #262841;
-    --article-bg-color: #ffffff;
+    --article-bg-color: #1c1c28;
     --founder-card-bg-color: #564dbc;
     --network-logo-bg-color: #e9eef1;
     /*text*/
     --text-color:#e9eef1;
     --bigtitle-color: #b24ce6;
     --title-color:  #564dbc;
-    --date-color: #701010;
+    --date-color: #3da3b2;
     --container-color: #3da3b2;
     /*buttons*/
-    --button-color: #000000;
-    --button-hover-color: #230413;
+    --button-color: #262841;
+    --button-hover-color: #181526;
     --button-text-color: #e9eef1;
     /*links*/
     --link-color: #262841;
@@ -1084,7 +1084,7 @@
         .linkedin-fallback {
             padding: 2rem;
             text-align: center;
-            background: #f8f8f8;
+            background: #181526;
             border-radius: 8px;
             margin: 2.5rem 0;
         }
