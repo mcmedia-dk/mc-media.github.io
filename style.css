@@ -27,7 +27,7 @@
     --divider-color: #e9eef1;
 
 
-    /* Variables pour light mode */
+    /* Variables for light mode */
 body.light-mode {
     --main-color: #f5f7f9;
     --card-color: #6c5ce7;
@@ -41,7 +41,7 @@ body.light-mode {
     --date-color: #3da3b2;
     --container-color: ;
     /*buttons*/
-    --button-color: #262841;
+    --button-color: #afcad5;
     --button-hover-color: #181526;
     --button-text-color: #e9eef1;
     /*links*/
@@ -108,7 +108,7 @@ body.light-mode #themeToggle:hover {
             border-bottom: 1px solid #000;
         }
         body.light-mode nav{
-                background: #766ea8;
+                background: #d9ddef;
             }
         .nav-container {
             max-width: 1400px;
@@ -394,9 +394,11 @@ body.light-mode #themeToggle:hover {
             border: 1px solid #000;
             position: relative;
         }
-
+        body.light-mode .cassette-label{
+                background: rgb(128, 124, 242);
+            }
         .cassette-label {
-            background: rgb(255, 0, 0);
+            background: rgb(0, 0, 0);
             border-radius: 4px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
@@ -739,6 +741,56 @@ body.light-mode #themeToggle:hover {
         /* ======================================
            IMPROVED OUR NETWORK SECTION
            ====================================== */
+           .partners-section {
+            margin: 4rem 0;
+            padding: 2rem 0;
+        }
+
+        .partners-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--bigtitle-color);
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .partners-logos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .partners-logo {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .partners-logo:hover {
+            transform: translateY(-5px);
+        }
+
+        .partners-logo-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            background: var(--network-logo-bg-color);
+            padding: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
         .network-section {
             margin: 4rem 0;
             padding: 2rem 0;
@@ -826,6 +878,33 @@ body.light-mode #themeToggle:hover {
             }
             
             .network-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+         /* Responsive adjustments for partners section */
+        @media (max-width: 768px) {
+            .partners-logos {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .partners-logo {
+                padding: 1rem;
+            }
+
+            .partners-logo-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .partners-logos {
+                grid-template-columns: 1fr;
+            }
+
+            .partners-section h2 {
                 font-size: 1.8rem;
             }
         }
@@ -1134,7 +1213,7 @@ body.light-mode #themeToggle:hover {
             min-height: 400px;
         }
         body.light-mode .linkedin-fallback {
-            background: #262841;
+            background: #afcad5;
         }
         body.light-mode .linkedin-fallback p {
             color: #f5f7f9;
@@ -1777,8 +1856,8 @@ body.light-mode #themeToggle:hover {
     }
 
     .logo-image {
-        height: 45px;
-        width: 150px;
+        height:55px;
+        width: 130px;
         object-fit: cover;
         object-position: center;
         display: block;
