@@ -1,4 +1,56 @@
-<!-- here should be header -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="style.css"/>
+<title>Home - MC Media</title>
+</head>
+<body class="spa-mode">
+  <div id="navbar" style="visibility:hidden;"></div>
+<script>
+(async () => {
+  try {
+    const res = await fetch("/partials/header.html");
+    const html = await res.text();
+    
+    const navbarContainer = document.getElementById("navbar");
+    navbarContainer.innerHTML = html;
+    
+    // ⏳ Petit délai pour être sûr que le DOM est prêt
+    await new Promise(resolve => setTimeout(resolve, 10));
+    
+    let currentPath = window.location.pathname;
+    if (currentPath === "/") currentPath = "/index.html";
+    currentPath = currentPath.split("?")[0].split("#")[0];
+    
+    // ✅ Chercher les liens DANS le container
+    const links = navbarContainer.querySelectorAll('.nav-link');
+    
+    console.log("Current path:", currentPath); // 🔍 Debug
+    
+    links.forEach(link => {
+      let linkPath = new URL(link.href).pathname;
+      linkPath = linkPath.split("?")[0].split("#")[0];
+      
+      console.log("Comparing:", linkPath, "with", currentPath); // 🔍 Debug
+      
+      if ((currentPath === "/index.html" && linkPath === "/index.html") ||
+          currentPath === linkPath) {
+        link.classList.add('active');
+        console.log("✅ Active ajouté à:", link.href); // 🔍 Debug
+      }
+    });
+    
+    navbarContainer.style.visibility = "visible";
+  } catch (err) {
+    console.error("Erreur chargement navbar :", err);
+  }
+})();
+</script>
+
+
+
     <!-- Sticky Banner with Animation -->
     <div class="sticky-banner">
         <h3>we embed copyright and creators get paid! / we embed copyright and creators get paid! / we embed copyright and creators get paid! / we embed copyright and creators get paid! / we embed copyright and creators get paid! / we embed copyright and creators get paid! / we embed copyright and creators get paid! / we embed copyright and creators get paid! / we embed copyright and creators get paid! / we embed copyright and creators get paid! /</h3>
@@ -79,11 +131,11 @@
                     <!-- White Label with Filter Buttons -->
                     <div class="cassette-label">
                         <div class="cassette-controls">
-                            <button class="cassette-button active" onclick="filterContent('all')">All</button>
-                            <button class="cassette-button" onclick="filterContent('blog')">Blog</button>
-                            <button class="cassette-button" onclick="filterContent('projects')">Projects</button>
-                            <button class="cassette-button" onclick="filterContent('talks')">Talks</button>
-                        </div>
+                        <button class="cassette-button active" data-category="all">All</button>
+                        <button class="cassette-button" data-category="blog">Blog</button>
+                        <button class="cassette-button" data-category="projects">Projects</button>
+                        <button class="cassette-button" data-category="talks">Talks</button>
+                    </div>
                     </div>
 
                     <!-- No Content Messages -->
@@ -105,7 +157,7 @@
                     <!-- Cassette Content - Tracks (REMOVED PODCAST AND SYMPHONIC) -->
                     <div class="cassette-content">
                         <!-- Projects Content -->
-                        <div class="cassette-track projects-content" onclick="navigateToContentPage('duck1')">
+                        <div class="cassette-track projects-content" data-target="duck1">
                             <div class="track-number">1</div>
                             <div class="track-info">
                                 <h3>Duck1 Testing Phase for Music Rights Management</h3>
@@ -115,7 +167,7 @@
                         </div>
 
                         <!-- Talks Content -->
-                        <div class="cassette-track talks-content" onclick="navigateToContentPage('mobygratis')">
+                        <div class="cassette-track talks-content" data-target="mobygratis">
                             <div class="track-number">2</div>
                             <div class="track-info">
                                 <h3>Mobygratis Explained: Conversations about licensing agreement with Natalie Jacobs</h3>
@@ -127,7 +179,7 @@
                 </div>
             </div>
         </div>
-<!-- here should be footer -->
+
         
     </section>
 
@@ -155,9 +207,6 @@
                     </div>
                 </div>
             </div>
-            
-           <!-- here should be footer -->
-      
     </section>
 
     <!-- Mobygratis Page -->
@@ -195,13 +244,20 @@
                     <p class="mobygratis-link">To learn more, visit <a href="https://mobygratis.com" target="_blank">https://mobygratis.com</a></p>
                 </div>
             </div>
-            
-<!-- here should be footer -->
+          
     </section>
+
+        <!-- Footer -->
+        <div id="footer-home"></div>
+        <script>
+        fetch("./partials/footer.html")
+            .then(res => res.text())
+            .then(html => document.getElementById("footer-home").innerHTML = html);
+        </script>
+
 
     <!-- Back to Home Button (Hidden on Home Page) -->
     <button class="back-to-home" id="backToHome" style="display: none;">← Back to Home</button>
-
     <script src="scripts.js"></script>
 </body>
 </html>

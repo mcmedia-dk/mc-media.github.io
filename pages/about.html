@@ -1,4 +1,72 @@
-<!-- here should be footer -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="/style.css"/>
+<title>About - MC Media</title>
+<script>
+  // Applique le thème immédiatement, avant que la page se charge
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+    }
+  })();
+</script>
+</head>
+<body class="standalone-mode">
+
+    <!--NAVIGATION-->
+
+  <div id="navbar" style="visibility:hidden;"></div>
+<script>
+(async () => {
+  try {
+    const res = await fetch("/partials/header.html");
+    const html = await res.text();
+    
+    const navbarContainer = document.getElementById("navbar");
+    navbarContainer.innerHTML = html;
+    
+    await new Promise(resolve => setTimeout(resolve, 10));
+    
+    let currentPath = window.location.pathname;
+    if (currentPath === "/") currentPath = "/index.html";
+    currentPath = currentPath.split("?")[0].split("#")[0];
+    
+    const links = navbarContainer.querySelectorAll('.nav-link');
+    
+    console.log("Current path:", currentPath);
+    
+    links.forEach(link => {
+      let linkPath = new URL(link.href).pathname;
+      linkPath = linkPath.split("?")[0].split("#")[0];
+      
+      console.log("Comparing:", linkPath, "with", currentPath);
+      
+      if ((currentPath === "/index.html" && linkPath === "/index.html") ||
+          currentPath === linkPath) {
+        link.classList.add('active');
+        console.log("✅ Active ajouté à:", link.href);
+      }
+    });
+    
+    navbarContainer.style.visibility = "visible";
+    
+   
+    if (typeof initThemeToggle === 'function') initThemeToggle();
+    if (typeof initHeaderAndNavigation === 'function') initHeaderAndNavigation();
+    
+  } catch (err) {
+    console.error("Erreur chargement navbar :", err);
+  }
+})();
+</script>
+
+
+
+
      <!-- About Page - UPDATED CONTENT -->
     <section id="about" class="page-section">
         <div class="about-section">
@@ -20,7 +88,7 @@
                         <!-- Founder 1 -->
                         <div class="founder-card">
                             <div class="founder-image">
-                                <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/placeholder team picture-2.jpg" 
+                                <img src="/images/diana profile.jpg" 
                                      alt="Diana Monroy-Garcia">
                             </div>
                             <div class="founder-info">
@@ -34,7 +102,7 @@
                         <!-- Founder 2 -->
                         <div class="founder-card">
                             <div class="founder-image">
-                                <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/insertimage" 
+                                <img src="/images/andres profile.png" 
                                      alt="Andrés Monroy-García">
                             </div>
                             <div class="founder-info">
@@ -48,8 +116,8 @@
                         <!-- Founder 3 -->
                         <div class="founder-card">
                             <div class="founder-image">
-                                <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/insertimage" 
-                                     alt="Founder 3">
+                                <img src="/images/alexander profile.png" 
+                                     alt="Alexander Leguizamon-Robayo">
                             </div>
                             <div class="founder-info">
                                 <h3>Alexander Leguizamon-Robayo</h3>
@@ -58,54 +126,85 @@
                                 <p>Technical expertise in complex systems</p>
                             </div>
                         </div>
+                                <!-- Founder 4 -->
+                        <div class="founder-card">
+                            <div class="founder-image">
+                                <img src="/images/riccardo profile.jpg" 
+                                     alt="Riccardo Carollo">
+                            </div>
+                            <div class="founder-info">
+                                <h3>Riccardo Carollo <br><br></h3>
+                                <p class="title">Co-Founder</p>
+                                <p class="experience">Project and Asset Management Specialist (+7 years)</p>
+                                <p> Technical expertise in industrial processes</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- IMPROVED Our Network Section - BORDERLESS WITH IMAGES -->
-                <div class="network-section">
-                    <h2>OUR NETWORK</h2>
-                    <div class="network-logos">
-                        <div class="network-logo">
-                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Equalizer Consulting Logo.webp" alt="Equalizer Consulting" class="network-logo-image">
+                <!-- IMPROVED Our partners Section - BORDERLESS WITH IMAGES -->
+                <div class="partners-section">
+                    <h2>OUR PARTNERS</h2>
+                    <div class="partners-logos">
+                        <div class="partners-logo">
+                            <img src="/images/equalizer logo.jpg" alt="Equalizer Consulting" class="network-logo-image">
                             <div class="logo-placeholder">Equalizer Consulting</div>
                             <div class="logo-text">Los Angeles, CA</div>
                         </div>
-                        <div class="network-logo">
-                            <img src="https://via.placeholder.com/80x80?text=TA" alt="Transparent Audio" class="network-logo-image">
-                            <div class="logo-placeholder">Transparent Audio</div>
-                            <div class="logo-text">Málaga, ES</div>
-                        </div>
-                        <div class="network-logo">
-                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Measure of Music.jpg" alt="Measure of Music" class="network-logo-image">
-                            <div class="logo-placeholder">Measure of Music</div>
-                            <div class="logo-text">London, UK</div>
-                        </div>
-                        <div class="network-logo">
-                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/roexaudio_logo.jpeg" alt="RoEx" class="network-logo-image">
-                            <div class="logo-placeholder">RoEx</div>
-                            <div class="logo-text">London, UK</div>
-                        </div>
-                        <div class="network-logo">
-                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/SPOT-NEXT.webp" alt="SPOT:NEXT" class="network-logo-image">
-                            <div class="logo-placeholder">SPOT:NEXT</div>
-                            <div class="logo-text">Aarhus, DK</div>
-                        </div>
-                        <div class="network-logo">
-                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Aarhus Lydforening.png" alt="Aarhus Lydforening" class="network-logo-image">
+                        <div class="partners-logo">
+                            <img src="/images/Aarhus Lydforening.png" alt="Aarhus Lydforening" class="network-logo-image">
                             <div class="logo-placeholder">Aarhus Lydforening</div>
                             <div class="logo-text">Aarhus, DK</div>
                         </div>
-                        <div class="network-logo">
-                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Musa.jpeg" alt="MuSA" class="network-logo-image">
+     
+                          <div class="partners-logo">
+                            <img src="/images/Musa.jpeg" alt="MuSA" class="network-logo-image">
                             <div class="logo-placeholder">MuSA</div>
                             <div class="logo-text">Aarhus, DK</div>
                         </div>
+                         <div class="partners-logo">
+                            <img src="/images/audio product academy.jpeg" alt="MuSA" class="network-logo-image">
+                            <div class="logo-placeholder">Audio Product Academy</div>
+                            <div class="logo-text">Warsaw, PL</div>
+                        </div>
+       
+                        </div>
+
+<!-- IMPROVED Our network Section - BORDERLESS WITH IMAGES -->
+                        <div class="network-section">
+                    <h2>OUR NETWORK</h2>
+                    <div class="network-logos">
+                        <div class="network-logo">
+                            <img src="/images/transparent audio.jpg" alt="Transparent Audio" class="network-logo-image">
+                            <div class="logo-placeholder">Transparent Audio</div>
+                            <div class="logo-text">Málaga, ES</div>
+                        </div>
+                     
+                      <div class="partners-logo">
+                            <img src="/images/measure of music logo.png" alt="Measure of Music" class="network-logo-image">
+                            <div class="logo-placeholder">Measure of Music</div>
+                            <div class="logo-text">London, UK</div>
+                        </div>
+                        <div class="partners-logo">
+                            <img src="/images/spot next logo.jpg" alt="SPOT:NEXT" class="network-logo-image">
+                            <div class="logo-placeholder">SPOT:NEXT</div>
+                            <div class="logo-text">Aarhus, DK</div>
+                        </div>
+                         <div class="partners-logo">
+                            <img src="/images/roex logo.png" alt="RoEx" class="network-logo-image">
+                            <div class="logo-placeholder">RoEx</div>
+                            <div class="logo-text">London, UK</div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            
-<!-- here should be footer -->
+             
     </section>
-        <script src="scripts.js"></script>
+    <!-- Footer -->
+<div id="footer-home"></div>
+<script>
+fetch("/partials/footer.html")
+    .then(res => res.text())
+    .then(html => document.getElementById("footer-home").innerHTML = html);
+</script>
+        <script src="/scripts.js"></script>
 </body>
 </html>
