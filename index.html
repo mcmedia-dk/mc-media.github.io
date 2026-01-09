@@ -1,55 +1,1745 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="stylesheet" href="style.css"/>
-<title>Home - MC Media</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC Media</title>
+    <style>
+        /* ======================================
+           GLOBAL STYLES & RESET
+           ====================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #ffffff;
+            color: #000;
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+        /* ======================================
+           HEADER - NAVIGATION
+           ====================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            z-index: 1000;
+            border-bottom: 1px solid #000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 55px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.8rem 1rem;
+            display: block;
+            transition: all 0.2s ease;
+            border-left: 1px solid #000;
+        }
+
+        .nav-links li:first-child a {
+            border-left: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* ======================================
+           MAIN - HERO SECTION
+           ====================================== */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .main-hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #000;
+            margin-top: 55px;
+        }
+
+        .hero-video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            pointer-events: none;
+        }
+
+        /* Video Text Overlay - FIXED TO SHOW ONLY 2 LINES */
+        .video-text-overlay {
+            position: absolute;
+            bottom: 80px;
+            left: 60px;
+            color: white;
+            text-align: left;
+            z-index: 4;
+            max-width: 500px;
+        }
+
+        .video-text-overlay h2 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            white-space: nowrap;
+        }
+
+        .video-text-overlay .line1 {
+            display: block;
+            margin-bottom: 0.3em;
+        }
+
+        .video-text-overlay .line2 {
+            display: block;
+        }
+
+        /* ======================================
+           STICKY BANNER WITH ANIMATION
+           ====================================== */
+        .sticky-banner {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: white;
+            border-bottom: 2px solid #000;
+            height: 41px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: fixed;
+            top: 55px;
+            left: 0;
+            right: 0;
+            z-index: 998;
+            width: 100vw;
+        }
+
+        .sticky-banner h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+            font-style: italic;
+            white-space: nowrap;
+            animation: slideRight 20s linear infinite;
+            line-height: 41px;
+            height: 41px;
+            display: block;
+            padding-top: 3px;
+        }
+
+        @keyframes slideRight {
+            0% { transform: translateX(-25%); }
+            100% { transform: translateX(25%); }
+        }
+
+        /* ======================================
+           IMPROVED MISSION SECTION - SMALLER HEADINGS
+           ====================================== */
+        .mission-section {
+            background: #ffffff;
+            padding: 5rem 0;
+            width: 100%;
+        }
+
+        .mission-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .mission-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .mission-header h2 {
+            font-size: 2.2rem; /* SMALLER */
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .mission-divider {
+            width: 100px;
+            height: 3px;
+            background: #ff1493;
+            margin: 0 auto 2rem;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .mission-card {
+            background: #f8f8f8;
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .mission-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+
+        .mission-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* ======================================
+           OUR NETWORK SECTION ON HOMEPAGE
+           ====================================== */
+        .network-section {
+            margin: 4rem 0;
+            padding: 2rem 0;
+            background: #ffffff;
+        }
+
+        .network-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .network-logos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .network-logo {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .network-logo:hover {
+            transform: translateY(-5px);
+        }
+
+        .network-logo-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            background: white;
+            padding: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-placeholder {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #000;
+        }
+
+        .logo-text {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #333;
+        }
+
+        /* ======================================
+           BLACK & WHITE CASSETTE TAPE STYLING
+           ====================================== */
+        .cassette-section {
+            background: #000;
+            width: 100%;
+            padding: 3rem 0;
+            margin: 0;
+        }
+
+        .cassette-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .cassette-player {
+            background: #000;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 0;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        .cassette-label {
+            background: white;
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        .cassette-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .cassette-button {
+            padding: 10px 20px;
+            background: white;
+            color: #000;
+            border: 1px solid #000;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .cassette-button:hover {
+            background: #000;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .cassette-button.active {
+            background: #000;
+            color: white;
+            border: 1px solid white;
+        }
+
+        .cassette-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .cassette-track {
+            background: white;
+            border-radius: 4px;
+            padding: 1.2rem;
+            border: 1px solid #000;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .cassette-track:hover {
+            background: #000;
+            color: white;
+        }
+
+        .cassette-track:hover .track-info h3,
+        .cassette-track:hover .track-info p {
+            color: white;
+        }
+
+        .track-number {
+            width: 24px;
+            height: 24px;
+            background: #000;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .track-info {
+            flex: 1;
+        }
+
+        .track-info h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+            color: #000;
+        }
+
+        .track-info p {
+            font-size: 0.85rem;
+            color: #000;
+            margin: 0;
+        }
+
+        .track-category {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: white;
+            color: #000;
+            border: 1px solid #000;
+        }
+
+        /* Neon pink category colors with black outline */
+        .blog-content .track-category {
+            background: #ff1493;
+            color: white;
+            border: 2px solid #000;
+            box-shadow: 0 0 0 1px #000;
+        }
+
+        .projects-content .track-category {
+            background: #ff1493;
+            color: white;
+            border: 2px solid #000;
+            box-shadow: 0 0 0 1px #000;
+        }
+
+        .talks-content .track-category {
+            background: #ff1493;
+            color: white;
+            border: 2px solid #000;
+            box-shadow: 0 0 0 1px #000;
+        }
+
+        .cassette-track:hover .track-category {
+            background: white;
+            color: #000;
+            border: 1px solid white;
+            box-shadow: none;
+        }
+
+        .no-content-message {
+            text-align: center;
+            padding: 2rem;
+            color: white;
+            font-style: italic;
+            display: none;
+        }
+
+        /* ======================================
+           RESTORED SERVICES PAGE - MISSION STYLE DESIGN
+           ====================================== */
+        .services-section {
+            background: #ffffff;
+            padding: 8rem 0 4rem 0; /* Added space before heading */
+            width: 100%;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .services-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .services-divider {
+            width: 100px;
+            height: 3px;
+            background: #ff1493;
+            margin: 0 auto 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: #f8f8f8;
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+
+        .service-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* ======================================
+           ABOUT PAGE STYLES
+           ====================================== */
+        .about-section {
+            padding: 8rem 0 4rem 0; /* Added space before heading */
+            background: #ffffff;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-header h2 {
+            font-size: 2.2rem; /* SMALLER */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #000;
+            letter-spacing: -0.02em;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        /* IMPROVED FOUNDERS SECTION - 3 COLUMN LAYOUT */
+        .founders-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .founders-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .founder-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #fff5f8 0%, #ffd6e7 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.1);
+            height: 100%;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.15);
+        }
+
+        .founder-image {
+            margin-bottom: 1.5rem;
+            width: 140px;
+            height: 140px;
+        }
+
+        .founder-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid #000; /* CHANGED FROM PINK TO BLACK */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .founder-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .founder-info h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #000;
+        }
+
+        .founder-info p {
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .founder-info .title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #000; /* CHANGED FROM PINK TO BLACK */
+            font-size: 1rem;
+        }
+
+        .founder-info .experience {
+            margin-bottom: 0.3rem;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        /* ======================================
+           IMPROVED OUR NETWORK SECTION
+           ====================================== */
+        .network-section-about {
+            margin: 4rem 0;
+            padding: 2rem 0;
+        }
+
+        .network-section-about h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* ======================================
+           CONTACT PAGE - SMALLER HEADING
+           ====================================== */
+        .contact-section {
+            padding: 8rem 0 4rem 0; /* Added space before heading */
+            background: #ffffff;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+
+        .contact-header h2 {
+            font-size: 2.2rem; /* SMALLER */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #000;
+            letter-spacing: -0.02em;
+        }
+
+        .contact-header p {
+            font-size: 1.2rem;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .contact-categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 1rem;
+        }
+
+        .contact-category {
+            background: #f8f8f8;
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .contact-category h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #000;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #ff1493;
+        }
+
+        .contact-category p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .contact-form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border: 1px solid #000;
+            border-radius: 8px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #000;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #000;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #000;
+        }
+
+        .submit-btn {
+            background: #000;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #333;
+        }
+
+        .form-status {
+            margin-top: 1rem;
+            padding: 12px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        /* ======================================
+           CONTENT PAGES - SMALLER HEADINGS WITH SPACING
+           ====================================== */
+        .content-page {
+            padding: 8rem 0 4rem 0;
+            background: #ffffff;
+        }
+
+        .content-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+
+        .content-header h2 {
+            font-size: 2.2rem; /* SMALLER */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #000;
+            letter-spacing: -0.02em;
+            margin-top: 2rem; /* ADDED SPACING */
+        }
+
+        .content-header p {
+            font-size: 1.2rem;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .content-article {
+            background: white;
+            border-radius: 8px;
+            padding: 2.5rem;
+            border: 1px solid #000;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem; /* ADDED SPACING */
+        }
+
+        .content-article:hover {
+            background: #000;
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .content-article:hover h3,
+        .content-article:hover p {
+            color: white;
+        }
+
+        .content-article h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ff1493;
+            margin-top: 1rem; /* ADDED SPACING */
+        }
+
+        .content-article p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+
+        /* ======================================
+           DUCK1 TESTING PAGE
+           ====================================== */
+        .duck1-page {
+            padding: 8rem 0 4rem 0;
+            background: #ffffff;
+        }
+
+        .duck1-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+
+        .duck1-title {
+            font-size: 2.2rem; /* SMALLER */
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-top: 2rem; /* ADDED SPACING */
+        }
+
+        .duck1-date {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .duck1-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .duck1-article {
+            background: white;
+            padding: 2.5rem 0;
+        }
+
+        .duck1-article p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #000;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .duck1-article strong {
+            font-weight: 600;
+            color: #000;
+        }
+
+        .duck1-section-heading {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #000;
+            margin: 2rem 0 1rem 0;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-top: 2.5rem; /* ADDED SPACING */
+        }
+
+        .duck1-article ul {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .duck1-article li {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #000;
+            margin-bottom: 0.8rem;
+        }
+
+        /* LinkedIn Post Styles for Duck1 Page */
+        .linkedin-embed {
+            margin: 2.5rem 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .linkedin-embed iframe {
+            width: 100%;
+            border: none;
+            min-height: 400px;
+        }
+
+        .linkedin-fallback {
+            padding: 2rem;
+            text-align: center;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin: 2.5rem 0;
+        }
+
+        .linkedin-fallback a {
+            color: #0077b5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .linkedin-fallback a:hover {
+            text-decoration: underline;
+        }
+
+        /* ======================================
+           MOBYGRATIS PAGE - SMALLER HEADINGS WITH SPACING
+           ====================================== */
+        .mobygratis-page {
+            padding: 8rem 0 4rem 0;
+            background: #ffffff;
+        }
+
+        .mobygratis-header {
+            text-align: left; /* CHANGED FROM center TO left */
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+            max-width: 900px; /* ADDED TO MATCH CONTENT WIDTH */
+            margin-left: auto; /* ADDED TO MATCH CONTENT WIDTH */
+            margin-right: auto; /* ADDED TO MATCH CONTENT WIDTH */
+        }
+
+        .mobygratis-title {
+            font-size: 2.2rem; /* SMALLER */
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-top: 2rem; /* ADDED SPACING */
+            text-align: left; /* ADDED TO ALIGN WITH TEXT */
+        }
+
+        .mobygratis-date {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            font-style: italic;
+            text-align: left; /* ADDED TO ALIGN WITH TEXT */
+        }
+
+        .mobygratis-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .mobygratis-article {
+            background: white;
+            padding: 2.5rem 0;
+        }
+
+        .mobygratis-article p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #000;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .mobygratis-article strong {
+            font-weight: 600;
+            color: #000;
+        }
+
+        .section-heading {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #000;
+            margin: 2rem 0 1rem 0;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-top: 2.5rem; /* ADDED SPACING */
+        }
+
+        .small-caps-heading {
+            font-variant: small-caps;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #000;
+            margin: 2rem 0 1rem 0;
+            letter-spacing: 0.05em;
+            margin-top: 2rem; /* ADDED SPACING */
+        }
+
+        .mobygratis-article ul {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .mobygratis-article li {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #000;
+            margin-bottom: 0.8rem;
+        }
+
+        .mobygratis-link {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #000;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        .mobygratis-link a {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .mobygratis-link a:hover {
+            color: #ff1493;
+        }
+
+        /* ======================================
+           FOOTER - WHITE BACKGROUND
+           ====================================== */
+        .white-footer {
+            background-color: #ffffff;
+            color: #000;
+            padding: 2rem 0 1rem 0;
+            margin-top: 4rem; /* Added space before footer */
+            border-top: 1px solid #000;
+            text-align: center;
+            width: 100%;
+        }
+
+        .white-footer * {
+            color: inherit;
+        }
+
+        .white-footer h3 {
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .white-footer p {
+            color: #000;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .white-footer strong {
+            color: #000;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-about {
+            max-width: 400px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            color: #000;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            border: 1px solid #000;
+        }
+
+        .social-links a:hover {
+            background: #000;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #000;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-bottom p {
+            color: #000;
+            font-size: 0.9rem;
+        }
+
+        /* ======================================
+           BACK TO HOME BUTTON - IMPROVED Z-INDEX
+           ====================================== */
+        .back-to-home {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            background: #000;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 999; /* HIGHER Z-INDEX TO APPEAR ABOVE MENU */
+        }
+
+        .back-to-home:hover {
+            background: #000;
+            transform: translateX(-3px);
+        }
+
+        /* ======================================
+           LOGO STYLES
+           ====================================== */
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            height: 55px;
+            padding: 5px 0;
+        }
+
+        .logo-image {
+            height: 45px;
+            width: 150px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        /* ======================================
+           RESPONSIVE DESIGN
+           ====================================== */
+        @media (max-width: 1024px) {
+            .mission-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links a {
+                padding: 0.8rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .video-text-overlay {
+                left: 40px;
+                bottom: 60px;
+                max-width: 450px;
+            }
+
+            .video-text-overlay h2 {
+                font-size: 2.8rem;
+                white-space: nowrap;
+            }
+
+            .mobygratis-title {
+                font-size: 2rem;
+            }
+            
+            .section-heading {
+                font-size: 1.6rem;
+            }
+            
+            /* Founders section responsive */
+            .founders-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile Navigation */
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                z-index: 1001; /* HIGHER THAN BACK BUTTON */
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                border-left: none;
+                border-bottom: 1px solid #000;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+
+            /* Logo Responsive */
+            .logo-image {
+                height: 35px;
+                width: 120px;
+            }
+
+            /* Video Text Overlay */
+            .video-text-overlay {
+                left: 30px;
+                bottom: 50px;
+                max-width: 380px;
+            }
+
+            .video-text-overlay h2 {
+                font-size: 2.3rem;
+                white-space: nowrap;
+            }
+
+            /* Mission Section */
+            .mission-section {
+                padding: 4rem 0;
+            }
+            
+            .mission-container {
+                padding: 0 1.5rem;
+            }
+            
+            .mission-header h2 {
+                font-size: 2rem;
+            }
+            
+            .mission-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .mission-card {
+                padding: 2rem 1.5rem;
+            }
+
+            /* Services Section */
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Cassette Player */
+            .cassette-section {
+                padding: 2rem 0;
+            }
+
+            .cassette-player {
+                padding: 1.5rem;
+            }
+
+            .cassette-label {
+                padding: 1rem;
+            }
+
+            .cassette-controls {
+                gap: 1rem;
+            }
+
+            .cassette-button {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .cassette-track {
+                padding: 1rem;
+            }
+
+            .track-number {
+                width: 22px;
+                height: 22px;
+                font-size: 0.75rem;
+                margin-right: 0.8rem;
+            }
+
+            .track-info h3 {
+                font-size: 0.95rem;
+            }
+
+            .track-info p {
+                font-size: 0.8rem;
+            }
+
+            /* Content Sections */
+            .content-page,
+            .services-section,
+            .about-section,
+            .contact-section,
+            .mobygratis-page,
+            .duck1-page {
+                padding: 6rem 0 3rem 0;
+            }
+
+            .content-header h2,
+            .services-header h2,
+            .about-header h2,
+            .contact-header h2,
+            .mobygratis-title,
+            .duck1-title {
+                font-size: 2rem;
+            }
+
+            .content-article,
+            .service-card,
+            .contact-category {
+                padding: 2rem;
+            }
+
+            /* About Page - Mobile Adjustments */
+            .founders-section {
+                padding: 2rem 1rem;
+            }
+
+            .founder-card {
+                padding: 1.5rem;
+            }
+
+            .founder-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .founder-image img {
+                width: 100%;
+                height: 100%;
+            }
+
+            /* Founders section responsive */
+            .founders-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Contact Form */
+            .form-row {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .contact-form-container {
+                margin: 0 1rem;
+                padding: 2rem;
+            }
+
+            /* Back button */
+            .back-to-home {
+                left: 10px;
+                top: 100px;
+                padding: 10px 15px;
+                font-size: 0.8rem;
+                z-index: 999; /* MAINTAIN HIGH Z-INDEX */
+            }
+
+            /* Mobygratis Page */
+            .mobygratis-article {
+                padding: 1.5rem 0;
+            }
+            
+            .section-heading {
+                font-size: 1.5rem;
+            }
+
+            /* LinkedIn Embed Responsive */
+            .linkedin-embed iframe {
+                min-height: 300px;
+            }
+
+            /* Network section responsive */
+            .network-logos {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .network-logo {
+                padding: 1rem;
+            }
+            
+            .network-logo-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 0.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo-image {
+                height: 30px;
+                width: 100px;
+            }
+
+            /* Video Text Overlay */
+            .video-text-overlay {
+                left: 20px;
+                bottom: 40px;
+                max-width: 280px;
+            }
+
+            .video-text-overlay h2 {
+                font-size: 1.8rem;
+                white-space: nowrap;
+            }
+
+            /* Mission Section */
+            .mission-section {
+                padding: 3rem 0;
+            }
+            
+            .mission-container {
+                padding: 0 1rem;
+            }
+            
+            .mission-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .mission-card {
+                padding: 1.5rem 1rem;
+            }
+
+            /* Contact Page */
+            .contact-category {
+                padding: 1.5rem;
+            }
+            
+            .contact-category h3 {
+                font-size: 1.3rem;
+            }
+            
+            .contact-category p {
+                font-size: 0.95rem;
+            }
+            
+            .contact-form-container {
+                padding: 1.5rem;
+            }
+
+            .cassette-section {
+                padding: 1.5rem 0;
+            }
+
+            .cassette-player {
+                padding: 1rem;
+            }
+
+            .cassette-label {
+                padding: 0.8rem;
+            }
+
+            .cassette-controls {
+                gap: 0.8rem;
+            }
+
+            .cassette-button {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            .cassette-track {
+                padding: 0.8rem;
+            }
+
+            .track-number {
+                width: 20px;
+                height: 20px;
+                font-size: 0.7rem;
+                margin-right: 0.6rem;
+            }
+
+            .track-info h3 {
+                font-size: 0.9rem;
+            }
+
+            .track-info p {
+                font-size: 0.75rem;
+            }
+
+            /* About Page - Mobile Adjustments */
+            .founders-section {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .founder-card {
+                padding: 1.5rem;
+            }
+
+            .founder-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            /* Mobygratis Page */
+            .mobygratis-title {
+                font-size: 1.7rem;
+            }
+
+            .mobygratis-article {
+                padding: 1rem 0;
+            }
+
+            .mobygratis-article p {
+                font-size: 1rem;
+            }
+            
+            .section-heading {
+                font-size: 1.3rem;
+            }
+
+            /* LinkedIn Embed Mobile */
+            .linkedin-embed {
+                margin: 1.5rem 0;
+            }
+
+            .linkedin-embed iframe {
+                min-height: 250px;
+            }
+
+            .linkedin-fallback {
+                padding: 1.5rem;
+            }
+
+            /* Network section mobile */
+            .network-logos {
+                grid-template-columns: 1fr;
+            }
+            
+            .network-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
-<body class="spa-mode">
-  <div id="navbar" style="visibility:hidden;"></div>
-<script>
-(async () => {
-  try {
-    const res = await fetch("/partials/header.html");
-    const html = await res.text();
-    
-    const navbarContainer = document.getElementById("navbar");
-    navbarContainer.innerHTML = html;
-    
-    // ⏳ Petit délai pour être sûr que le DOM est prêt
-    await new Promise(resolve => setTimeout(resolve, 10));
-    
-    let currentPath = window.location.pathname;
-    if (currentPath === "/") currentPath = "/index.html";
-    currentPath = currentPath.split("?")[0].split("#")[0];
-    
-    // ✅ Chercher les liens DANS le container
-    const links = navbarContainer.querySelectorAll('.nav-link');
-    
-    console.log("Current path:", currentPath); // 🔍 Debug
-    
-    links.forEach(link => {
-      let linkPath = new URL(link.href).pathname;
-      linkPath = linkPath.split("?")[0].split("#")[0];
-      
-      console.log("Comparing:", linkPath, "with", currentPath); // 🔍 Debug
-      
-      if ((currentPath === "/index.html" && linkPath === "/index.html") ||
-          currentPath === linkPath) {
-        link.classList.add('active');
-        console.log("✅ Active ajouté à:", link.href); // 🔍 Debug
-      }
-    });
-    
-    navbarContainer.style.visibility = "visible";
-  } catch (err) {
-    console.error("Erreur chargement navbar :", err);
-  }
-})();
-</script>
-
-
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo" id="logoLink">
+                <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/mclogo.png" alt="MC Media" class="logo-image">
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="services">Services</a></li>
+                    <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn">☰</button>
+            </div>
+        </div>
+    </nav>
 
     <!-- Sticky Banner with Animation -->
     <div class="sticky-banner">
@@ -83,8 +1773,7 @@
             <!-- Video Text Overlay -->
             <div class="video-text-overlay">
                 <h2>
-                    <span class="line1">Secure your music</span>
-                    <span class="line2">copyright with MC Media</span>
+                    <span class="line1">Secure your music copyright with MC Media</span>
                 </h2>
             </div>
             
@@ -124,6 +1813,48 @@
             </div>
         </div>
 
+        <!-- Our Network Section on Homepage -->
+        <div class="network-section">
+            <h2>OUR NETWORK</h2>
+            <div class="network-logos">
+                <div class="network-logo">
+                    <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Equalizer Consulting Logo.webp" alt="Equalizer Consulting" class="network-logo-image">
+                    <div class="logo-placeholder">Equalizer Consulting</div>
+                    <div class="logo-text">Los Angeles, CA</div>
+                </div>
+                <div class="network-logo">
+                    <img src="https://via.placeholder.com/80x80?text=TA" alt="Transparent Audio" class="network-logo-image">
+                    <div class="logo-placeholder">Transparent Audio</div>
+                    <div class="logo-text">Málaga, ES</div>
+                </div>
+                <div class="network-logo">
+                    <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Measure of Music.jpg" alt="Measure of Music" class="network-logo-image">
+                    <div class="logo-placeholder">Measure of Music</div>
+                    <div class="logo-text">London, UK</div>
+                </div>
+                <div class="network-logo">
+                    <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/roexaudio_logo.jpeg" alt="RoEx" class="network-logo-image">
+                    <div class="logo-placeholder">RoEx</div>
+                    <div class="logo-text">London, UK</div>
+                </div>
+                <div class="network-logo">
+                    <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/SPOT-NEXT.webp" alt="SPOT:NEXT" class="network-logo-image">
+                    <div class="logo-placeholder">SPOT:NEXT</div>
+                    <div class="logo-text">Aarhus, DK</div>
+                </div>
+                <div class="network-logo">
+                    <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Aarhus Lydforening.png" alt="Aarhus Lydforening" class="network-logo-image">
+                    <div class="logo-placeholder">Aarhus Lydforening</div>
+                    <div class="logo-text">Aarhus, DK</div>
+                </div>
+                <div class="network-logo">
+                    <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Musa.jpeg" alt="MuSA" class="network-logo-image">
+                    <div class="logo-placeholder">MuSA</div>
+                    <div class="logo-text">Aarhus, DK</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Cassette Tape Section with Extended Black Background -->
         <div class="cassette-section">
             <div class="cassette-container">
@@ -131,11 +1862,11 @@
                     <!-- White Label with Filter Buttons -->
                     <div class="cassette-label">
                         <div class="cassette-controls">
-                        <button class="cassette-button active" data-category="all">All</button>
-                        <button class="cassette-button" data-category="blog">Blog</button>
-                        <button class="cassette-button" data-category="projects">Projects</button>
-                        <button class="cassette-button" data-category="talks">Talks</button>
-                    </div>
+                            <button class="cassette-button active" onclick="filterContent('all')">All</button>
+                            <button class="cassette-button" onclick="filterContent('blog')">Blog</button>
+                            <button class="cassette-button" onclick="filterContent('projects')">Projects</button>
+                            <button class="cassette-button" onclick="filterContent('talks')">Talks</button>
+                        </div>
                     </div>
 
                     <!-- No Content Messages -->
@@ -157,7 +1888,7 @@
                     <!-- Cassette Content - Tracks (REMOVED PODCAST AND SYMPHONIC) -->
                     <div class="cassette-content">
                         <!-- Projects Content -->
-                        <div class="cassette-track projects-content" data-target="duck1">
+                        <div class="cassette-track projects-content" onclick="navigateToContentPage('duck1')">
                             <div class="track-number">1</div>
                             <div class="track-info">
                                 <h3>Duck1 Testing Phase for Music Rights Management</h3>
@@ -167,7 +1898,7 @@
                         </div>
 
                         <!-- Talks Content -->
-                        <div class="cassette-track talks-content" data-target="mobygratis">
+                        <div class="cassette-track talks-content" onclick="navigateToContentPage('mobygratis')">
                             <div class="track-number">2</div>
                             <div class="track-info">
                                 <h3>Mobygratis Explained: Conversations about licensing agreement with Natalie Jacobs</h3>
@@ -180,9 +1911,280 @@
             </div>
         </div>
 
-        
+        <!-- Footer -->
+        <div class="white-footer">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>MC Media</h3>
+                    <p>Empowering music creators with easy copyright protection. We embed copyright, and creators get paid!</p>
+                    <p>e-mail: mcmedia.dk@gmail.com</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/mcmedia-dk/posts/?feedView=all" target="_blank" aria-label="LinkedIn">in</a>
+                        <a href="https://www.instagram.com/musicrightscl" target="_blank" aria-label="Instagram">📷</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 MC Media. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- Services Page - MISSION STYLE DESIGN WITH 4 NEW SERVICES -->
+    <section id="services" class="page-section">
+        <div class="services-section">
+            <div class="services-container">
+                <div class="services-header">
+                    <h2>Our Services</h2>
+                    <div class="services-divider"></div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🎓</div>
+                        <h3>Artist Education</h3>
+                        <p>We provide educational resources—blogs, discussions, and guides—to help artists understand copyright, licensing, and digital rights. MC Media empower creators with knowledge to protect their work and maximize their earnings.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🌐</div>
+                        <h3>Web Platform (API)</h3>
+                        <p>MC Media built a web platform for artists to easily protect their work. Features include drag-and-drop uploading, automatic copyright embedding, and freemium pricing with subscription tiers.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔌</div>
+                        <h3>Digital Audio Workstation (DAW) Plugins</h3>
+                        <p>Copyright protection that works right where you create. These plugins integrate seamlessly with Audacity and other DAWs, letting you protect tracks as you make them. Accessible via subscription or through software licensing partnerships.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">⚖️</div>
+                        <h3>Music Rights Consultation</h3>
+                        <p>Expert consultation services for navigating complex music rights landscapes. Get personalized advice on music copyright and licensing agreements.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="white-footer">
+                <div class="footer-content">
+                    <div class="footer-about">
+                        <h3>MC Media</h3>
+                        <p>Empowering music creators with easy copyright protection. We embed copyright, and creators get paid!</p>
+                        <p>e-mail: mcmedia.dk@gmail.com</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/company/mcmedia-dk/posts/?feedView=all" target="_blank" aria-label="LinkedIn">in</a>
+                            <a href="https://www.instagram.com/musicrightscl" target="_blank" aria-label="Instagram">📷</a>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 MC Media. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page - UPDATED CONTENT -->
+    <section id="about" class="page-section">
+        <div class="about-section">
+            <div class="about-content">
+                <div class="about-header">
+                    <h2>About MC Media</h2>
+                </div>
+                <div class="about-text">
+                    <p>MC Media believes creators deserve ownership and fair pay. In today's digital landscape, music travels across countless platforms, often losing track of its distribution and failing to credit the original creator.
+                    Our solution embeds copyright information directly into music files to create a permanent link between the work and the creator.
+                    Overall, our goal is to build tools that put power back in the hands of creators. MC Media team brings expertise in music technology and copyright management to support creators at every stage.</p>
+                </div>
+
+                <!-- IMPROVED Meet Our Founders Section - 3 COLUMN LAYOUT -->
+                <div class="founders-section">
+                    <h2>Meet Our Founders</h2>
+                    
+                    <div class="founders-grid">
+                        <!-- Founder 1 -->
+                        <div class="founder-card">
+                            <div class="founder-image">
+                                <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/placeholder team picture-2.jpg" 
+                                     alt="Diana Monroy-Garcia">
+                            </div>
+                            <div class="founder-info">
+                                <h3>Diana Monroy-Garcia</h3>
+                                <p class="title">Founder</p>
+                                <p class="experience">Music Licensing (3 yrs) & Multimedia Asset Management (5 yrs)</p>
+                                <p>Deep understanding of creator rights & data</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Founder 2 -->
+                        <div class="founder-card">
+                            <div class="founder-image">
+                                <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/insertimage" 
+                                     alt="Andrés Monroy-García">
+                            </div>
+                            <div class="founder-info">
+                                <h3>Andrés Monroy-García</h3>
+                                <p class="title">Co-Founder</p>
+                                <p class="experience">Small Business Ops & Software Dev (5+ yrs)</p>
+                                <p> Proven ability to build for tech education</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Founder 3 -->
+                        <div class="founder-card">
+                            <div class="founder-image">
+                                <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/insertimage" 
+                                     alt="Founder 3">
+                            </div>
+                            <div class="founder-info">
+                                <h3>Alexander Leguizamon-Robayo</h3>
+                                <p class="title">Co-Founder</p>
+                                <p class="experience">Software Developer, PhD Computer Science (5+ yrs)</p>
+                                <p>Technical expertise in complex systems</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IMPROVED Our Network Section - BORDERLESS WITH IMAGES -->
+                <div class="network-section-about">
+                    <h2>OUR NETWORK</h2>
+                    <div class="network-logos">
+                        <div class="network-logo">
+                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Equalizer Consulting Logo.webp" alt="Equalizer Consulting" class="network-logo-image">
+                            <div class="logo-placeholder">Equalizer Consulting</div>
+                            <div class="logo-text">Los Angeles, CA</div>
+                        </div>
+                        <div class="network-logo">
+                            <img src="https://via.placeholder.com/80x80?text=TA" alt="Transparent Audio" class="network-logo-image">
+                            <div class="logo-placeholder">Transparent Audio</div>
+                            <div class="logo-text">Málaga, ES</div>
+                        </div>
+                        <div class="network-logo">
+                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Measure of Music.jpg" alt="Measure of Music" class="network-logo-image">
+                            <div class="logo-placeholder">Measure of Music</div>
+                            <div class="logo-text">London, UK</div>
+                        </div>
+                        <div class="network-logo">
+                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/roexaudio_logo.jpeg" alt="RoEx" class="network-logo-image">
+                            <div class="logo-placeholder">RoEx</div>
+                            <div class="logo-text">London, UK</div>
+                        </div>
+                        <div class="network-logo">
+                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/SPOT-NEXT.webp" alt="SPOT:NEXT" class="network-logo-image">
+                            <div class="logo-placeholder">SPOT:NEXT</div>
+                            <div class="logo-text">Aarhus, DK</div>
+                        </div>
+                        <div class="network-logo">
+                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Aarhus Lydforening.png" alt="Aarhus Lydforening" class="network-logo-image">
+                            <div class="logo-placeholder">Aarhus Lydforening</div>
+                            <div class="logo-text">Aarhus, DK</div>
+                        </div>
+                        <div class="network-logo">
+                            <img src="https://raw.githubusercontent.com/marycrisostomo/mc-media-website/main/Musa.jpeg" alt="MuSA" class="network-logo-image">
+                            <div class="logo-placeholder">MuSA</div>
+                            <div class="logo-text">Aarhus, DK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="white-footer">
+                <div class="footer-content">
+                    <div class="footer-about">
+                        <h3>MC Media</h3>
+                        <p>Empowering music creators with easy copyright protection. We embed copyright, and creators get paid!</p>
+                        <p>e-mail: mcmedia.dk@gmail.com</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/company/mcmedia-dk/posts/?feedView=all" target="_blank" aria-label="LinkedIn">in</a>
+                            <a href="https://www.instagram.com/musicrightscl" target="_blank" aria-label="Instagram">📷</a>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 MC Media. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page-section">
+        <div class="contact-section">
+            <div class="contact-header">
+                <h2>Get In Touch</h2>
+                <p>Whether you're looking to streamline your production workflows, protect your creative assets, or explore how our solutions can transform your audiovisual catalog management, we're here to help.</p>
+            </div>
+
+            <div class="contact-categories">
+                <div class="contact-category">
+                    <h3>How Can We Assist You?</h3>
+                    <p><strong>General Inquiries</strong><br>
+                    Have questions about our production planning, archiving, or copyright management services? We'd love to hear from you and discuss how we can support your creative operations.</p>
+                    
+                    <p><strong>Custom Solutions</strong><br>
+                    Every creator and organization has unique needs. Reach out to learn how our cutting-edge asset management solutions can be tailored to your specific workflow and catalog requirements.</p>
+                    
+                    <p><strong>Technical Support</strong><br>
+                    Our team is committed to ensuring you get the most out of our platform. Contact us for technical assistance, onboarding support, or guidance on optimizing your current setup.</p>
+                </div>
+                
+                <div class="contact-category">
+                    <h3>Opportunities & Partnerships</h3>
+                    <p><strong>Collaboration</strong><br>
+                    Interested in working together? We're always open to exploring collaborative opportunities with creators, studios, and organizations who share our vision of fairness in the creative industries.</p>
+                    
+                    <p><strong>Partnerships</strong><br>
+                    We believe in building meaningful partnerships that drive innovation. If you're interested in partnering with us to advance copyright awareness and creative asset management, let's connect.</p>
+                    
+                    <p><strong>Internships</strong><br>
+                    We're passionate about nurturing the next generation of creative industry professionals. If you're eager to learn about the intersection of technology, copyright, and creative workflows, we'd love to hear from you.</p>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <form class="contact-form" id="contactForm" action="mailto:mcmedia.dk@gmail.com" method="post" enctype="text/plain">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                    <div class="form-status" id="formStatus"></div>
+                </form>
+            </div>
+            
+            <!-- Footer -->
+            <div class="white-footer">
+                <div class="footer-content">
+                    <div class="footer-about">
+                        <h3>MC Media</h3>
+                        <p>Empowering music creators with easy copyright protection. We embed copyright, and creators get paid!</p>
+                        <p>e-mail: mcmedia.dk@gmail.com</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/company/mcmedia-dk/posts/?feedView=all" target="_blank" aria-label="LinkedIn">in</a>
+                            <a href="https://www.instagram.com/musicrightscl" target="_blank" aria-label="Instagram">📷</a>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 MC Media. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Duck1 Testing Page -->
     <section id="duck1" class="page-section">
@@ -207,6 +2209,25 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Footer -->
+            <div class="white-footer">
+                <div class="footer-content">
+                    <div class="footer-about">
+                        <h3>MC Media</h3>
+                        <p>Empowering music creators with easy copyright protection. We embed copyright, and creators get paid!</p>
+                        <p>e-mail: mcmedia.dk@gmail.com</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/company/mcmedia-dk/posts/?feedView=all" target="_blank" aria-label="LinkedIn">in</a>
+                            <a href="https://www.instagram.com/musicrightscl" target="_blank" aria-label="Instagram">📷</a>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 MC Media. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Mobygratis Page -->
@@ -244,20 +2265,233 @@
                     <p class="mobygratis-link">To learn more, visit <a href="https://mobygratis.com" target="_blank">https://mobygratis.com</a></p>
                 </div>
             </div>
-          
+            
+            <!-- Footer -->
+            <div class="white-footer">
+                <div class="footer-content">
+                    <div class="footer-about">
+                        <h3>MC Media</h3>
+                        <p>Empowering music creators with easy copyright protection. We embed copyright, and creators get paid!</p>
+                        <p>e-mail: mcmedia.dk@gmail.com</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/company/mcmedia-dk/posts/?feedView=all" target="_blank" aria-label="LinkedIn">in</a>
+                            <a href="https://www.instagram.com/musicrightscl" target="_blank" aria-label="Instagram">📷</a>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 MC Media. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
-        <!-- Footer -->
-        <div id="footer-home"></div>
-        <script>
-        fetch("./partials/footer.html")
-            .then(res => res.text())
-            .then(html => document.getElementById("footer-home").innerHTML = html);
-        </script>
-
 
     <!-- Back to Home Button (Hidden on Home Page) -->
     <button class="back-to-home" id="backToHome" style="display: none;">← Back to Home</button>
-    <script src="scripts.js"></script>
+
+    <script>
+        // ======================================
+        // DOM ELEMENTS
+        // ======================================
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const navLinksAll = document.querySelectorAll('.nav-link');
+        const pageSections = document.querySelectorAll('.page-section');
+        const stickyBanner = document.querySelector('.sticky-banner');
+        const backToHomeBtn = document.getElementById('backToHome');
+        const heroVideo = document.getElementById('heroVideo');
+        const videoFallback = document.getElementById('videoFallback');
+        const logoLink = document.getElementById('logoLink');
+       
+        // ======================================
+        // LOGO REDIRECT TO HOME
+        // ======================================
+        logoLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateToPage('home');
+        });
+
+        // ======================================
+        // MOBILE MENU TOGGLE
+        // ======================================
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // ======================================
+        // PAGE NAVIGATION
+        // ======================================
+        function navigateToPage(pageId) {
+            // Hide all page sections
+            pageSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update active nav link
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide sticky banner and back button based on page
+            if (pageId === 'home') {
+                stickyBanner.style.display = 'none';
+                backToHomeBtn.style.display = 'none';
+            } else {
+                stickyBanner.style.display = 'flex';
+                backToHomeBtn.style.display = 'block';
+            }
+            
+            // Close mobile menu if open
+            navLinks.classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // ======================================
+        // NAVIGATION EVENT LISTENERS
+        // ======================================
+        navLinksAll.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                navigateToPage(pageId);
+            });
+        });
+
+        // Back to home button
+        backToHomeBtn.addEventListener('click', () => {
+            navigateToPage('home');
+        });
+
+        // ======================================
+        // CASSETTE TAPE FILTERING
+        // ======================================
+        function filterContent(category) {
+            const tracks = document.querySelectorAll('.cassette-track');
+            const buttons = document.querySelectorAll('.cassette-button');
+            
+            // Update active button
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show/hide tracks based on category
+            tracks.forEach(track => {
+                if (category === 'all' || track.classList.contains(`${category}-content`)) {
+                    track.style.display = 'flex';
+                } else {
+                    track.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no content messages
+            const noBlogMessage = document.getElementById('noBlogMessage');
+            const noProjectsMessage = document.getElementById('noProjectsMessage');
+            const noTalksMessage = document.getElementById('noTalksMessage');
+            
+            // Hide all messages first
+            noBlogMessage.style.display = 'none';
+            noProjectsMessage.style.display = 'none';
+            noTalksMessage.style.display = 'none';
+            
+            // Show appropriate message if no content for selected category
+            if (category === 'blog') {
+                const blogTracks = document.querySelectorAll('.blog-content');
+                const visibleBlogTracks = Array.from(blogTracks).filter(track => track.style.display !== 'none');
+                if (visibleBlogTracks.length === 0) {
+                    noBlogMessage.style.display = 'block';
+                }
+            } else if (category === 'projects') {
+                const projectsTracks = document.querySelectorAll('.projects-content');
+                const visibleProjectsTracks = Array.from(projectsTracks).filter(track => track.style.display !== 'none');
+                if (visibleProjectsTracks.length === 0) {
+                    noProjectsMessage.style.display = 'block';
+                }
+            } else if (category === 'talks') {
+                const talksTracks = document.querySelectorAll('.talks-content');
+                const visibleTalksTracks = Array.from(talksTracks).filter(track => track.style.display !== 'none');
+                if (visibleTalksTracks.length === 0) {
+                    noTalksMessage.style.display = 'block';
+                }
+            }
+        }
+
+        // ======================================
+        // CONTENT PAGE NAVIGATION
+        // ======================================
+        function navigateToContentPage(contentType) {
+            // Navigate to the content page
+            navigateToPage(contentType);
+        }
+
+        // ======================================
+        // VIDEO CONTROL REMOVAL
+        // ======================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const heroVideo = document.getElementById('heroVideo');
+            
+            if (heroVideo) {
+                // Remove controls attribute completely
+                heroVideo.removeAttribute('controls');
+                heroVideo.controls = false;
+                
+                // Force hide any potential controls
+                heroVideo.style.setProperty('--media-controls-display', 'none', 'important');
+                
+                // Ensure video plays automatically and loops
+                heroVideo.play().catch(error => {
+                    console.log('Video autoplay failed:', error);
+                });
+                
+                // Prevent any right-click context menu
+                heroVideo.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        });
+
+        // ======================================
+        // VIDEO FALLBACK HANDLING
+        // ======================================
+        // Check if video can play
+        if (heroVideo) {
+            heroVideo.addEventListener('error', () => {
+                // If video fails to load, show fallback
+                if (videoFallback) {
+                    videoFallback.style.display = 'flex';
+                }
+            });
+        }
+
+        // ======================================
+        // INITIALIZATION
+        // ======================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the page
+            navigateToPage('home');
+            
+            // Set up initial cassette filter
+            filterContent('all');
+            
+            // Try to play the video
+            if (heroVideo) {
+                heroVideo.play().catch(error => {
+                    console.log('Video autoplay prevented, showing fallback');
+                    if (videoFallback) {
+                        videoFallback.style.display = 'flex';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
