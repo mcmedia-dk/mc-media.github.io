@@ -11,9 +11,15 @@
 <script>
 (async () => {
   try {
-    const res = await fetch("/partials/header.html");
-    const html = await res.text();
-    
+    const res = await fetch("./partials/header.html");
+    let html = await res.text();
+
+    // Fix absolute paths in header.html for GitHub Pages compatibility
+    const basePath = './';
+    html = html.replace(/href="\/index\.html"/g, `href="${basePath}index.html"`);
+    html = html.replace(/href="\/pages\//g, `href="${basePath}pages/`);
+    html = html.replace(/src="\/images\//g, `src="${basePath}images/`);
+
     const navbarContainer = document.getElementById("navbar");
     navbarContainer.innerHTML = html;
     
@@ -21,24 +27,22 @@
     await new Promise(resolve => setTimeout(resolve, 10));
     
     let currentPath = window.location.pathname;
-    if (currentPath === "/") currentPath = "/index.html";
     currentPath = currentPath.split("?")[0].split("#")[0];
-    
-    // ✅ Chercher les liens DANS le container
+
     const links = navbarContainer.querySelectorAll('.nav-link');
-    
-    console.log("Current path:", currentPath); // 🔍 Debug
-    
+
     links.forEach(link => {
       let linkPath = new URL(link.href).pathname;
       linkPath = linkPath.split("?")[0].split("#")[0];
-      
-      console.log("Comparing:", linkPath, "with", currentPath); // 🔍 Debug
-      
-      if ((currentPath === "/index.html" && linkPath === "/index.html") ||
-          currentPath === linkPath) {
+
+      // Compare just the filename for more reliable matching
+      const currentFile = currentPath.split('/').pop() || 'index.html';
+      const linkFile = linkPath.split('/').pop() || 'index.html';
+
+      if (currentFile === linkFile ||
+          (currentFile === '' && linkFile === 'index.html') ||
+          (currentPath.endsWith('/') && linkFile === 'index.html')) {
         link.classList.add('active');
-        console.log("✅ Active ajouté à:", link.href); // 🔍 Debug
       }
     });
     
