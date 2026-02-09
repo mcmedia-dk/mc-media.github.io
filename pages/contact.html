@@ -67,44 +67,66 @@
 })();
 </script>
 
+<!-- App Banner Section -->
+<div class="app-banner">
+    <div class="app-banner-content">
+        <h2>Ready to protect your music?</h2>
+        <p>Embed copyright metadata directly into your tracks</p>
+        <a href="https://app.mcmedia.dk" class="app-banner-btn" target="_blank">Try Metadata Duck Now</a>
+    </div>
+</div>
+
     <!-- Contact Page -->
     <section id="contact" class="page-section">
-        <div class="contact-section">
-            <div class="contact-header">
-                <h2>Get In Touch</h2>
-                <p>Whether you're looking to streamline your production workflows, protect your creative assets, or explore how our solutions can transform your audiovisual catalog management, we're here to help.</p>
-            </div>
-
-            <div class="contact-categories">
-                <div class="contact-category">
-                    <h3>How Can We Assist You?</h3>
-                    <p><strong>General Inquiries</strong><br>
-                    Have questions about our production planning, archiving, or copyright management services? We'd love to hear from you and discuss how we can support your creative operations.</p>
-                    
-                    <p><strong>Custom Solutions</strong><br>
-                    Every creator and organization has unique needs. Reach out to learn how our cutting-edge asset management solutions can be tailored to your specific workflow and catalog requirements.</p>
-                    
-                    <p><strong>Technical Support</strong><br>
-                    Our team is committed to ensuring you get the most out of our platform. Contact us for technical assistance, onboarding support, or guidance on optimizing your current setup.</p>
+        <div class="contact-section-new">
+            <div class="contact-container-new">
+                <div class="contact-intro">
+                    <span class="contact-label">Contact</span>
+                    <h2>Get In Touch</h2>
+                    <p class="contact-subtitle">Whether you're looking to streamline your production workflows, protect your creative assets, or explore how our solutions can transform your audiovisual catalog management, we're here to help.</p>
                 </div>
-                
-                <div class="contact-category">
-                    <h3>Opportunities & Partnerships</h3>
-                    <p><strong>Collaboration</strong><br>
-                    Interested in working together? We're always open to exploring collaborative opportunities with creators, studios, and organizations who share our vision of fairness in the creative industries.</p>
-                    
-                    <p><strong>Partnerships</strong><br>
-                    We believe in building meaningful partnerships that drive innovation. If you're interested in partnering with us to advance copyright awareness and creative asset management, let's connect.</p>
-                    
-                    <p><strong>Internships</strong><br>
-                    We're passionate about nurturing the next generation of creative industry professionals. If you're eager to learn about the intersection of technology, copyright, and creative workflows, we'd love to hear from you.</p>
+
+            <div class="contact-features">
+                <div class="contact-feature">
+                    <div class="feature-icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>How Can We Assist You?</h3>
+                        <p><strong>General Inquiries</strong> - Have questions about our production planning, archiving, or copyright management services? We'd love to hear from you.</p>
+                        <p><strong>Custom Solutions</strong> - Every creator has unique needs. Reach out to learn how our solutions can be tailored to your workflow.</p>
+                        <p><strong>Technical Support</strong> - Contact us for technical assistance, onboarding support, or guidance on optimizing your setup.</p>
+                    </div>
+                </div>
+
+                <div class="contact-feature">
+                    <div class="feature-icon-wrapper">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Opportunities & Partnerships</h3>
+                        <p><strong>Collaboration</strong> - We're always open to exploring collaborative opportunities with creators and organizations who share our vision.</p>
+                        <p><strong>Partnerships</strong> - If you're interested in partnering with us to advance copyright awareness, let's connect.</p>
+                        <p><strong>Internships</strong> - We're passionate about nurturing the next generation of creative industry professionals.</p>
+                    </div>
                 </div>
             </div>
 <!--For this part, I used formspree.io;
 the website take care of the action of sending system. This link is attached to MY account (corentinlefrere51@gmail.com)
  but (normally) send a email to mcmedia.dk@gmail.com (I didn't try yet)
  a status of the mail (sent or not) have to appear with the js ("contact mail status") -->
-            <div class="contact-form-container">
+            <div class="contact-form-wrapper">
+                <h3>Send us a message</h3>
+                <div class="contact-form-container">
                 <form class="contact-form" id="contactForm" action="https://formspree.io/f/mvgebrrv" method="post">
                     <div class="form-row">
                         <div class="form-group">
@@ -127,8 +149,10 @@ the website take care of the action of sending system. This link is attached to 
                     <button type="submit" class="submit-btn">Send Message</button>
                     <div class="form-status" id="formStatus"></div>
                 </form>
+                </div>
             </div>
-            
+            </div>
+        </div>
     </section>
     <!-- Footer -->
  
