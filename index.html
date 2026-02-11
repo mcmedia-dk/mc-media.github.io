@@ -7,47 +7,7 @@
 <title>Home - MC Media</title>
 </head>
 <body class="spa-mode">
-<!--   <div id="navbar" ></div> -->
-<!-- <script> -->
-<!-- (async () => { -->
-<!--   try { -->
-<!--     const res = await fetch("./partials/header.html"); -->
-<!--     let html = await res.text(); -->
-<!---->
-<!--     const navbarContainer = document.getElementById("navbar"); -->
-<!--     navbarContainer.innerHTML = html; -->
-<!---->
-<!--     // ⏳ Petit délai pour être sûr que le DOM est prêt -->
-<!--     await new Promise(resolve => setTimeout(resolve, 10)); -->
-<!---->
-<!--     let currentPath = window.location.pathname; -->
-<!--     currentPath = currentPath.split("?")[0].split("#")[0]; -->
-<!---->
-<!--     const links = navbarContainer.querySelectorAll('.nav-link'); -->
-<!---->
-<!--     links.forEach(link => { -->
-<!--       let linkPath = new URL(link.href).pathname; -->
-<!--       linkPath = linkPath.split("?")[0].split("#")[0]; -->
-<!---->
-<!--       // Compare just the filename for more reliable matching -->
-<!--       const currentFile = currentPath.split('/').pop() || 'index.html'; -->
-<!--       const linkFile = linkPath.split('/').pop() || 'index.html'; -->
-<!---->
-<!--       if (currentFile === linkFile || -->
-<!--           (currentFile === '' && linkFile === 'index.html') || -->
-<!--           (currentPath.endsWith('/') && linkFile === 'index.html')) { -->
-<!--         link.classList.add('active'); -->
-<!--       } -->
-<!--     }); -->
-<!---->
-<!--     navbarContainer.style.visibility = "visible"; -->
-<!--   } catch (err) { -->
-<!--     console.error("Erreur chargement navbar :", err); -->
-<!--   } -->
-<!-- })(); -->
-<!-- </script> -->
-<!---->
-
+    <div id="navbar"></div>
 
     <!-- Sticky Banner with Animation -->
     <div class="sticky-banner">
