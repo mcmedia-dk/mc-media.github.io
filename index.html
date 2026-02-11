@@ -14,12 +14,6 @@
     const res = await fetch("./partials/header.html");
     let html = await res.text();
 
-    // Fix absolute paths in header.html for GitHub Pages compatibility
-    const basePath = './';
-    html = html.replace(/href="\/index\.html"/g, `href="${basePath}index.html"`);
-    html = html.replace(/href="\/pages\//g, `href="${basePath}pages/`);
-    html = html.replace(/src="\/images\//g, `src="${basePath}images/`);
-
     const navbarContainer = document.getElementById("navbar");
     navbarContainer.innerHTML = html;
     
