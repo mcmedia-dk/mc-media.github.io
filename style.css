@@ -274,7 +274,7 @@ body.light-mode #themeToggle:hover {
             color: white;
             border-bottom: 2px solid #000;
             height: 41px;
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
@@ -316,7 +316,7 @@ body.light-mode #themeToggle:hover {
         }
 
         .app-banner-top {
-            margin-top: 55px;
+            margin-top: 96px;
         }
 
         .app-banner::before {

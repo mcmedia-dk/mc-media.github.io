@@ -17,54 +17,22 @@
 </head>
    <body class="standalone-mode">
    
-   <!--NAVIGATION-->
-
-  <div id="navbar" style="visibility:hidden;"></div>
-<script>
-(async () => {
-  try {
-    const res = await fetch("../partials/header.html");
-    let html = await res.text();
-
-    // Adjust relative paths for subpage depth
-    html = html.replace(/href="index\.html"/g, 'href="../index.html"');
-    html = html.replace(/href="pages\//g, 'href="../pages/');
-    html = html.replace(/src="images\//g, 'src="../images/');
-
-    const navbarContainer = document.getElementById("navbar");
-    navbarContainer.innerHTML = html;
-    
-    await new Promise(resolve => setTimeout(resolve, 10));
-
-    let currentPath = window.location.pathname;
-    currentPath = currentPath.split("?")[0].split("#")[0];
-
-    const links = navbarContainer.querySelectorAll('.nav-link');
-
-    links.forEach(link => {
-      let linkPath = new URL(link.href).pathname;
-      linkPath = linkPath.split("?")[0].split("#")[0];
-
-      // Compare just the filename for more reliable matching
-      const currentFile = currentPath.split('/').pop() || 'index.html';
-      const linkFile = linkPath.split('/').pop() || 'index.html';
-
-      if (currentFile === linkFile) {
-        link.classList.add('active');
-      }
-    });
-    
-    navbarContainer.style.visibility = "visible";
-    
-
-    if (typeof initThemeToggle === 'function') initThemeToggle();
-    if (typeof initHeaderAndNavigation === 'function') initHeaderAndNavigation();
-    
-  } catch (err) {
-    console.error("Erreur chargement navbar :", err);
-  }
-})();
-</script>
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../images/mcmedialogo.png" class="logo-image">
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link" data-page="home">Home</a></li>
+                    <li><a href="../pages/services.html" class="nav-link">Services</a></li>
+                    <li><a href="../pages/about.html" class="nav-link">About</a></li>
+                    <li><a href="../pages/contact.html" class="nav-link active">Contact</a></li>
+                </ul>
+                <button id="themeToggle">🌙</button>
+            </div>
+        </div>
+    </nav>
 
 <!-- App Banner Section -->
 <div class="app-banner">
@@ -154,13 +122,22 @@ the website take care of the action of sending system. This link is attached to 
         </div>
     </section>
     <!-- Footer -->
- 
-<div id="footer-home"></div>
-<script>
-fetch("../partials/footer.html")
-    .then(res => res.text())
-    .then(html => document.getElementById("footer-home").innerHTML = html);
-</script>
+    <div class="white-footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>MC Media</h3>
+                <p>Empowering music creators with easy copyright protection. We embed copyright, and creators get paid!</p>
+                <p>e-mail: mcmedia.dk@gmail.com</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/company/mcmedia-dk/posts/?feedView=all" target="_blank" aria-label="LinkedIn">in</a>
+                    <a href="https://www.instagram.com/musicrightscl" target="_blank" aria-label="Instagram">📷</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MC Media. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
       <script src="../scripts.js"></script>
 </body>
 </html>

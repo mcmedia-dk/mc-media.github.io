@@ -5,9 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="stylesheet" href="style.css"/>
 <title>Home - MC Media</title>
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+    }
+  })();
+</script>
 </head>
 <body class="spa-mode">
-    <div id="navbar"></div>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo" id="logoLink">
+                <img src="images/mcmedialogo.png" class="logo-image">
+            </a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="pages/services.html" class="nav-link">Services</a></li>
+                    <li><a href="pages/about.html" class="nav-link">About</a></li>
+                    <li><a href="pages/contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <button id="themeToggle">🌙</button>
+            </div>
+        </div>
+    </nav>
 
     <!-- Sticky Banner with Animation -->
     <div class="sticky-banner">
@@ -239,12 +262,22 @@
     </section>
 
         <!-- Footer -->
-        <div id="footer-home"></div>
-        <script>
-        fetch("./partials/footer.html")
-            .then(res => res.text())
-            .then(html => document.getElementById("footer-home").innerHTML = html);
-        </script>
+        <div class="white-footer">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>MC Media</h3>
+                    <p>Empowering music creators with easy copyright protection. We embed copyright, and creators get paid!</p>
+                    <p>e-mail: mcmedia.dk@gmail.com</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/mcmedia-dk/posts/?feedView=all" target="_blank" aria-label="LinkedIn">in</a>
+                        <a href="https://www.instagram.com/musicrightscl" target="_blank" aria-label="Instagram">📷</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 MC Media. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
 
 
     <!-- Back to Home Button (Hidden on Home Page) -->

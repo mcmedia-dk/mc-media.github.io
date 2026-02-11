@@ -1,46 +1,4 @@
 // ======================================
-// LOAD HEADER FOR STANDALONE PAGES
-// ======================================
-function loadStandaloneHeader() {
-    (async () => {
-      try {
-        const res = await fetch("/partials/header.html");
-        const html = await res.text();
-        
-        const navbarContainer = document.getElementById("navbar");
-        navbarContainer.innerHTML = html;
-        
-        await new Promise(resolve => setTimeout(resolve, 10));
-        
-        let currentPath = window.location.pathname;
-        if (currentPath === "/") currentPath = "/index.html";
-        currentPath = currentPath.split("?")[0].split("#")[0];
-        
-        const links = navbarContainer.querySelectorAll('.nav-link');
-        
-        links.forEach(link => {
-          let linkPath = new URL(link.href).pathname;
-          linkPath = linkPath.split("?")[0].split("#")[0];
-          
-          if ((currentPath === "/index.html" && linkPath === "/index.html") ||
-              currentPath === linkPath) {
-            link.classList.add('active');
-          }
-        });
-        
-        navbarContainer.style.visibility = "visible";
-        
-        // Init après chargement du header
-        initThemeToggle();
-        initHeaderAndNavigation();
-        
-      } catch (err) {
-        console.error("Erreur chargement navbar :", err);
-      }
-    })();
-}
-
-// ======================================
 // DOM ELEMENTS AFTER HEADER LOAD
 // ======================================
 function initHeaderAndNavigation() {
@@ -95,14 +53,10 @@ function navigateToPage(pageId) {
     const section = document.getElementById(pageId);
     if (section) section.classList.add('active');
 
-    if (stickyBanner && backToHomeBtn) {
-        if (pageId === 'home') {  
-            stickyBanner.style.display = 'none';  
-            backToHomeBtn.style.display = 'none';  
-        } else {  
-            stickyBanner.style.display = 'flex';  
-            backToHomeBtn.style.display = 'block';  
-        }  
+    if (stickyBanner) stickyBanner.style.display = 'flex';
+
+    if (backToHomeBtn) {
+        backToHomeBtn.style.display = (pageId === 'home') ? 'none' : 'block';
     }
 
     const navLinks = document.querySelector('.nav-links');  
@@ -228,22 +182,26 @@ function initContactForm() {
 // ======================================
 function initThemeToggle() {
     const themeToggle = document.getElementById('themeToggle');
-    
+
     if (!themeToggle) return;
-    
+
     const savedTheme = localStorage.getItem('theme') || 'dark';
-    
+
+    // Sync both html and body so early <head> script and CSS selectors agree
     if (savedTheme === 'light') {
+        document.documentElement.classList.add('light-mode');
         document.body.classList.add('light-mode');
         themeToggle.textContent = '☀️';
     } else {
+        document.documentElement.classList.remove('light-mode');
         document.body.classList.remove('light-mode');
         themeToggle.textContent = '🌙';
     }
-    
+
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('light-mode');
-        
+        document.documentElement.classList.toggle('light-mode');
+
         if (document.body.classList.contains('light-mode')) {
             themeToggle.textContent = '☀️';
             localStorage.setItem('theme', 'light');
@@ -258,19 +216,11 @@ function initThemeToggle() {
 // INITIALIZATION
 // ======================================
 document.addEventListener('DOMContentLoaded', () => {
+    initThemeToggle();
+    initHeaderAndNavigation();
+
     if (document.body.classList.contains('spa-mode')) {
-        // Mode SPA (index.html)
-        fetch("/partials/header.html")
-            .then(res => res.text())
-            .then(html => {
-                document.getElementById("navbar").innerHTML = html;
-                initHeaderAndNavigation();
-                navigateToPage('home');
-                initThemeToggle();
-            });
-    } else if (document.body.classList.contains('standalone-mode')) {
-        // Mode standalone - le header se chargera via loadStandaloneHeader()
-        // (appelé depuis le HTML)
+        navigateToPage('home');
     }
 
     initCassetteFilter();
